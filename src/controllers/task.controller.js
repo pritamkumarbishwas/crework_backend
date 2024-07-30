@@ -24,7 +24,7 @@ const createTask = asyncHandler(async (req, res) => {
     if (!title?.trim()) {
         throw new ApiError(400, 'Title is required');
     }
-    
+
     if (!status?.trim()) {
         throw new ApiError(400, 'Status is required');
     }
@@ -77,6 +77,23 @@ const updateTask = asyncHandler(async (req, res) => {
     return res.status(200).json(new ApiResponse(200, task, 'Task updated successfully'));
 });
 
+const changeStatus = asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    const { status } = req.body;
+    const userId = req.user._id;
+
+    const task = await Task.findOne({ _id: id, userId });
+
+    if (!task) {
+        throw new ApiError(404, 'Task not found or not authorized');
+    }
+
+    task.status = status || task.status;
+    await task.save();
+
+    return res.status(200).json(new ApiResponse(200, task, 'Task Status Change successfully'));
+});
+
 const deleteTask = asyncHandler(async (req, res) => {
     const { id } = req.params;
     const userId = req.user._id;
@@ -97,5 +114,6 @@ export {
     createTask,
     getTaskById,
     updateTask,
+    changeStatus,
     deleteTask
 };

@@ -28,7 +28,7 @@ const taskSchema = new mongoose.Schema({
         default: 'Low'
     },
     deadline: {
-        type: Date
+        type: String
     }
 }, {
     timestamps: true

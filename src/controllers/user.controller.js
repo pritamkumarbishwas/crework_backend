@@ -24,10 +24,10 @@ const generateAccessAndRefereshTokens = async (userId) => {
 }
 
 const registerUser = asyncHandler(async (req, res) => {
-    const { fullName, email, username, password } = req.body;
+    const { email, username, password } = req.body;
 
     // Check if all fields are provided and not empty
-    const fields = { fullName, email, username, password };
+    const fields = { email, username, password };
     for (const [field, value] of Object.entries(fields)) {
         if (!value?.trim()) {
             throw new ApiError(400, `${field} is required`);
@@ -43,7 +43,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
     // Create a new user
     const user = await User.create({
-        fullName,
+
         email,
         password,
         username: username.toLowerCase(),
@@ -220,9 +220,9 @@ const getCurrentUser = asyncHandler(async (req, res) => {
 })
 
 const updateAccountDetails = asyncHandler(async (req, res) => {
-    const { fullName, email,username } = req.body;
+    const { email, username } = req.body;
 
-    const fields = { fullName, email, username };
+    const fields = { email, username };
     for (const [field, value] of Object.entries(fields)) {
         if (!value?.trim()) {
             throw new ApiError(400, `${field} is required`);
@@ -233,7 +233,7 @@ const updateAccountDetails = asyncHandler(async (req, res) => {
         req.user?._id,
         {
             $set: {
-                fullName,
+
                 email: email,
                 username
             }
