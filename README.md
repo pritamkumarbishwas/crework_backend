@@ -29,7 +29,7 @@ The backend is hosted on Render and can be accessed via the following URL:
 1. **Clone the Repository**
 
     ```bash
-    git clone https://github.com/pritamkumarbishwas/crework_backend
+    git clone https://github.com/pritamkumarbishwas/crework_backend.git
     
     cd crework_backend
     ```
