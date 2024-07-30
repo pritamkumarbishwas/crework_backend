@@ -6,7 +6,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 // Get all tasks for a user
 const getTasks = asyncHandler(async (req, res) => {
     const userId = req.user._id;
-    const tasks = await Task.find({ userId });
+    const tasks = await Task.find({ userId }).sort({ createdAt: -1 });
 
     if (!tasks || tasks.length === 0) {
         throw new ApiError(404, 'No tasks found');
